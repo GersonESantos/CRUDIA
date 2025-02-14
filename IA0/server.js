@@ -78,7 +78,10 @@ const app = express();
 //   });
 // });
 
-
+app.get('/', (req, res) => {
+  res.write('Hello World! server.js');
+  res.end()
+});
 
 // Servidor
 

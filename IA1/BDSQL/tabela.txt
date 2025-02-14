@@ -1,0 +1,8 @@
+CREATE TABLE cliente (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    imagem VARCHAR(255),
+    telefone BIGINT,
+    afinidade VARCHAR(20)
+);
