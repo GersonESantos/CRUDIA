@@ -1,14 +1,14 @@
 const express = require("express");
 const mysql = require("mysql2");
-// const cors = require("cors");
-// const bodyParser = require("body-parser");
-// const multer = require("multer");
-// const path = require("path");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const multer = require("multer");
+const path = require("path");
 
 const app = express();
-// app.use(cors());
-// app.use(bodyParser.json());
-// app.use(express.static("uploads"));
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static("uploads"));
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -22,15 +22,15 @@ db.connect(err => {
   console.log("Banco de dados conectado!");
 });
 
-// // Configuração do upload de imagens
-// const storage = multer.diskStorage({
-//   destination: "./uploads",
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   }
-// });
+//Configuração do upload de imagens
+const storage = multer.diskStorage({
+  destination: "./uploads",
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
 
-// const upload = multer({ storage });
+ const upload = multer({ storage });
 
 // // Criar cliente
 // app.post("/clientes", upload.single("imagem"), (req, res) => {
@@ -44,13 +44,13 @@ db.connect(err => {
 //   });
 // });
 
-// // Listar clientes
-// app.get("/clientes", (req, res) => {
-//   db.query("SELECT * FROM cliente", (err, results) => {
-//     if (err) throw err;
-//     res.json(results);
-//   });
-// });
+// Listar clientes
+app.get("/clientes", (req, res) => {
+  db.query("SELECT * FROM cliente", (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
 
 // // Atualizar cliente
 // app.put("/clientes/:id", upload.single("imagem"), (req, res) => {
@@ -79,7 +79,7 @@ db.connect(err => {
 // });
 
 app.get('/', (req, res) => {
-  res.write('Utilizando MySQL com Node.js');
+  res.write('Utilizando MySQL com Node.js Server');
   res.end()
 });
 

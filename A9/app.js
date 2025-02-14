@@ -1,10 +1,20 @@
 // Importar módulo express
 const express = require('express');
 
+// importar módulo express-handlebars
+const { engine } = require('express-handlebars');
+
+// Importar módulo mysql
 const mysql = require('mysql2');
 
 // App
 const app = express();
+
+// Configuração do handlebars
+
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', './views');
 
 // Conexão com o banco de dados
 const Conexao = mysql.createConnection({
@@ -16,17 +26,14 @@ const Conexao = mysql.createConnection({
 // Conectar
 Conexao.connect(function(err){
     if(err) throw err;
-    console.log('Banco Conectado com sucesso!');
+    console.log('Conectado com sucesso!');
 }
 );
-
-// Rota de teste
 app.get('/', function(req, res){
 
-    res.write('Utilizando MySQL com Node.js');
-    res.end();
+    res.render('formulario');
+   
 });
-
 // Servidor
 
 
