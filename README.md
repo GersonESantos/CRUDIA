@@ -1,9 +1,9 @@
 # CRUDIA
 📌 Instale as dependências:
 npm init -y
-npm install express mysql2 cors body-parser multer nodemon
+npm install express mysql2 body-parser  nodemon
 
  
 🚀 Como rodar o projeto:
 
-node server.js
+node app.js

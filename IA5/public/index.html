@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Clientes</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista de Clientes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Afinidade</th>
+                <th>Imagem</th>
+            </tr>
+        </thead>
+        <tbody id="clientesTable">
+            <!-- Os dados serão inseridos aqui -->
+        </tbody>
+    </table>
+
+    <script>
+        async function carregarClientes() {
+            try {
+                const response = await fetch("http://localhost:8080/clientes");
+                const clientes = await response.json();
+
+                const tbody = document.getElementById("clientesTable");
+                tbody.innerHTML = ""; // Limpa a tabela
+
+                clientes.forEach(cliente => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${cliente.id}</td>
+                        <td>${cliente.nome}</td>
+                        <td>${cliente.email}</td>
+                        <td>${cliente.telefone}</td>
+                        <td>${cliente.afinidade}</td>
+                        <td>${cliente.imagem ? `<img src="uploads/${cliente.imagem}" alt="Imagem do cliente">` : "Sem imagem"}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+            } catch (error) {
+                console.error("Erro ao carregar clientes:", error);
+            }
+        }
+
+        // Carregar clientes ao abrir a página
+        window.onload = carregarClientes;
+    </script>
+
+</body>
+</html>

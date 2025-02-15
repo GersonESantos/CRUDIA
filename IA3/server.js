@@ -70,13 +70,13 @@ app.get("/clientes", (req, res) => {
 //   });
 // });
 
-// // Deletar cliente
-// app.delete("/clientes/:id", (req, res) => {
-//   db.query("DELETE FROM cliente WHERE id=?", [req.params.id], (err, result) => {
-//     if (err) throw err;
-//     res.send("Cliente removido!");
-//   });
-// });
+ // Deletar cliente
+app.delete("/clientes/:id", (req, res) => {
+  db.query("DELETE FROM cliente WHERE id=?", [req.params.id], (err, result) => {
+    if (err) throw err;
+    res.send("Cliente removido!");
+  });
+});
 
 app.get('/', (req, res) => {
   res.write('Utilizando MySQL com Node.js Server');
