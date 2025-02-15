@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     carregarClientes();
 
-// ********************************************************
-
 
 
 document.getElementById("clienteForm").addEventListener("submit", async (e) => {
@@ -35,19 +33,7 @@ document.getElementById("clienteForm").addEventListener("submit", async (e) => {
     }
 });
 
-
-
-
-
-
-
 });
-
-// ********************************************************
-
-
-
-
 
 async function carregarClientes() {
     try {
@@ -96,17 +82,6 @@ async function carregarClientes() {
         console.error("Erro ao carregar clientes:", error);
     }
 }
-
-
-
-
-
-
-
-
-
-// ********************************************************
-
 
 async function deletarCliente(id) {
     if (confirm("Tem certeza que deseja excluir este cliente?")) {
