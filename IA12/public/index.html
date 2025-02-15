@@ -13,6 +13,29 @@
 
     <h2 class="text-center fw-bold mt-4">Cadastro de Cliente</h2>
     <form id="clienteForm">
+        <h2 class="text-center fw-bold mt-4">Editar Cliente</h2>
+<form id="editarClienteForm" style="display: none;">
+    <input type="hidden" name="id">
+
+    <label>Nome:</label>
+    <input type="text" name="nome" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <label>Telefone:</label>
+    <input type="text" name="telefone" required>
+
+    <label>Afinidade:</label>
+    <input type="text" name="afinidade" required>
+
+    <label>Imagem:</label>
+    <input type="file" name="imagem" accept="image/*">
+
+    <button type="submit">Salvar Alterações</button>
+    <button type="button" id="cancelarEdicao">Cancelar</button>
+</form>
+
         <label>Nome:</label>
         <input type="text" name="nome" required>
 
@@ -29,34 +52,6 @@
         <input type="file" name="imagem" accept="image/*">
 
         <button type="submit">Cadastrar Cliente</button>
-        <!-- Modal de Edição -->
-    <div id="modalEdicao" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="fecharModal()">&times;</span>
-            <h2>Editar Cliente</h2>
-            <form id="editarClienteForm">
-                <input type="hidden" name="id" id="edit-id">
-                <label>Nome:</label>
-                <input type="text" name="nome" id="edit-nome" required>
-
-                <label>Email:</label>
-                <input type="email" name="email" id="edit-email" required>
-
-                <label>Telefone:</label>
-                <input type="text" name="telefone" id="edit-telefone"> <br><br>
-                
-                <label>Afinidade:</label>
-                <input type="text" name="afinidade" id="edit-afinidade" required>
-
-                <label>Imagem:</label>
-                <input type="file" name="imagem" id="edit-imagem" accept="image/*">
-
-                <button type="submit">Salvar Alterações</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="script.js"></script> <!-- Importa o JS externo -->
     </form>
 
     <h2>Lista de Clientes</h2>

@@ -1,4 +1,3 @@
-// 11
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
@@ -9,8 +8,8 @@ const path = require("path");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static("public")); // Servir o HTML
-app.use("/uploads", express.static("uploads")); // Servir imagens
+app.use(express.static("public"));
+app.use("/uploads", express.static("uploads"));
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -24,19 +23,10 @@ db.connect(err => {
   console.log("Banco de dados conectado!");
 });
 
-//Configuração do upload de imagens
-// const storage = multer.diskStorage({
-//   destination: "./uploads",
-//   filename: (req, file, cb) => {
-//     const filename = Date.now() + path.extname(file.originalname);
-//     cb(null, filename);
-//   }
-// });
-
 const storage = multer.diskStorage({
   destination: "./uploads",
   filename: (req, file, cb) => {
-    cb(null, file.originalname); // Mantém o nome original do arquivo
+    cb(null, file.originalname);
   }
 });
 
@@ -67,6 +57,27 @@ app.get("/clientes", (req, res) => {
     res.json(results);
   });
 });
+
+// *****************************************************
+
+
+
+// Editar cliente
+app.put("/clientes/:id", upload.single("imagem"), (req, res) => {
+  const { nome, email, telefone, afinidade } = req.body;
+  const imagem = req.file ? req.file.filename : req.body.imagem;
+  const { id } = req.params;
+
+  const sql = "UPDATE cliente SET nome=?, email=?, telefone=?, afinidade=?, imagem=? WHERE id=?";
+  db.query(sql, [nome, email, telefone, afinidade, imagem, id], (err, result) => {
+    if (err) {
+      console.error("Erro ao atualizar cliente:", err);
+      return res.status(500).send("Erro ao atualizar cliente.");
+    }
+    res.send("Cliente atualizado com sucesso!");
+  });
+});
+
 // Buscar um cliente pelo ID
 app.get("/clientes/:id", (req, res) => {
   const id = req.params.id;
@@ -81,6 +92,27 @@ app.get("/clientes/:id", (req, res) => {
       res.json(result[0]); // Retorna o primeiro cliente encontrado
   });
 });
+
+
+
+// *****************************************************
+
+// Editar cliente
+// app.put("/clientes/:id", upload.single("imagem"), (req, res) => {
+//   const { nome, email, telefone, afinidade } = req.body;
+//   const imagem = req.file ? req.file.filename : req.body.imagem;
+//   const { id } = req.params;
+
+//   const sql = "UPDATE cliente SET nome=?, email=?, telefone=?, afinidade=?, imagem=? WHERE id=?";
+//   db.query(sql, [nome, email, telefone, afinidade, imagem, id], (err, result) => {
+//     if (err) {
+//       console.error("Erro ao atualizar cliente:", err);
+//       return res.status(500).send("Erro ao atualizar cliente.");
+//     }
+//     res.send("Cliente atualizado com sucesso!");
+//   });
+// });
+
 // Deletar cliente
 app.delete("/clientes/:id", (req, res) => {
   db.query("DELETE FROM cliente WHERE id=?", [req.params.id], (err, result) => {
@@ -88,6 +120,7 @@ app.delete("/clientes/:id", (req, res) => {
     res.send("Cliente removido!");
   });
 });
+
 // Servir o HTML
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
