@@ -1,7 +1,6 @@
+// 11 Crie um script que faça requisições para a API de clientes criada no exercício anterior. O script deve conter as seguintes funcionalidades:
 document.addEventListener("DOMContentLoaded", () => {
     carregarClientes();
-
-
 
 document.getElementById("clienteForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -32,7 +31,6 @@ document.getElementById("clienteForm").addEventListener("submit", async (e) => {
         console.error("Erro ao cadastrar cliente:", error);
     }
 });
-
 });
 
 async function carregarClientes() {
