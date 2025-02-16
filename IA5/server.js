@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public")); // Para servir o HTML
-app.use("/uploads", express.static("uploads")); // Para exibir imagens
+app.use("/uploads", express.static("uploads"));
 
 const db = mysql.createConnection({
   host: "localhost",
