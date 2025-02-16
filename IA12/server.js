@@ -69,17 +69,19 @@ app.get("/clientes", (req, res) => {
 });
 // Buscar um cliente pelo ID
 app.get("/clientes/:id", (req, res) => {
-  const id = req.params.id;
-  db.query("SELECT * FROM cliente WHERE id = ?", [id], (err, result) => {
-      if (err) {
-          console.error("Erro ao buscar cliente:", err);
-          return res.status(500).send("Erro ao buscar cliente.");
-      }
-      if (result.length === 0) {
-          return res.status(404).send("Cliente não encontrado.");
-      }
-      res.json(result[0]); // Retorna o primeiro cliente encontrado
-  });
+  console.log(req.params.id);
+  res.end();
+  // const id = req.params.id;
+  // db.query("SELECT * FROM cliente WHERE id = ?", [id], (err, result) => {
+  //     if (err) {
+  //         console.error("Erro ao buscar cliente:", err);
+  //         return res.status(500).send("Erro ao buscar cliente.");
+  //     }
+  //     if (result.length === 0) {
+  //         return res.status(404).send("Cliente não encontrado.");
+  //     }
+  //     res.json(result[0]); // Retorna o primeiro cliente encontrado
+  // });
 });
 // Deletar cliente
 app.delete("/clientes/:id", (req, res) => {
